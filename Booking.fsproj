@@ -1,17 +1,18 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="compose.yaml" />
+    <Content Include="Flyway\sql\V1__InitialSetup.sql" />
+    <Content Include="Flyway\conf\flyway.conf" />
+    <Content Include="Database\initDB.sql" />
+    <None Include="paket.references" />
+    <Compile Include="Domain.fs" />
 
-    <PropertyGroup>
-        <OutputType>Exe</OutputType>
-        <TargetFramework>net6.0</TargetFramework>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <Compile Include="Program.fs" />
-        <Content Include="compose.yaml" />
-        <Content Include="Flyway\sql\V1__InitialSetup.sql" />
-        <Content Include="Flyway\sql\V2__ReservationsTable.sql" />
-        <Content Include="Flyway\conf\flyway.conf" />
-        <Content Include="Database\initDB.sql" />
-    </ItemGroup>
-
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+  <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>
