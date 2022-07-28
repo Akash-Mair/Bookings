@@ -1,7 +1,7 @@
 services:
   flyway:
     image: flyway/flyway
-    command: -connectRetries=60 migrate 
+    command: migrate 
     volumes:
       - ./Flyway/conf:/flyway/conf
       - ./Flyway/sql:/flyway/sql
