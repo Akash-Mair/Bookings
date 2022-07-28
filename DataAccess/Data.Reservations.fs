@@ -6,8 +6,7 @@ open Domain
 open Npgsql.FSharp
 
 let getAllReservations (DbConnectionString connStr) = 
-    let sqlQuery =
-        """SELECT * FROM Reservations r JOIN Locations l ON r.LocationId = l.Id"""
+    let sqlQuery = "SELECT * FROM Reservations"
     
     connStr
     |> Sql.connect
