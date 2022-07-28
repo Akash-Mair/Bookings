@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "MIQlSfHrNUefNTB15bIgtv+y7+0z0Vi4iR7QeXNTSQxWlFD2XSdn52BnhWjOT9e1FkmHdPLFpXzqT9TodY0fAw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Akash\\Documents\\code\\learning\\Booking\\Booking\\Booking.fsproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Akash\\.nuget\\packages\\fsharp.core\\6.0.2\\fsharp.core.6.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}

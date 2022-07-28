@@ -1,0 +1,20 @@
+services:
+  flyway:
+    image: flyway/flyway
+    command: -connectRetries=60 migrate 
+    volumes:
+      - ./Flyway/conf:/flyway/conf
+      - ./Flyway/sql:/flyway/sql
+    depends_on:
+      - db
+  db:
+    container_name: postgres_container
+    image: postgres
+    restart: always
+    volumes: 
+      - ./Database/initDB.sql:/docker-entrypoint-initdb.d/initDB.sql
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mysecretpassword
+    ports:
+      - 5432:5432
