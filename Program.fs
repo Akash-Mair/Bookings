@@ -1,10 +1,15 @@
 open Giraffe
 open Microsoft.AspNetCore.Builder
 open Microsoft.AspNetCore.Http
+open Microsoft.Extensions.Configuration
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Hosting
 open Giraffe.EndpointRouting
 
+type HttpContext with
+    member ctx.Config =
+        ctx.GetService<IConfiguration>()
+        
 let handler1 : HttpHandler =
     fun (_ : HttpFunc) (ctx : HttpContext) ->
         ctx.WriteTextAsync "Hello World"

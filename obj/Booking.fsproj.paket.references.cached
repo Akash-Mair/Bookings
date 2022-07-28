@@ -1,2 +1,3 @@
 giraffe
 Microsoft.AspNetCore.App
+Npgsql.FSharp

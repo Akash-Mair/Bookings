@@ -16,7 +16,21 @@ type ReservationStatus =
     | Requested
     | Processing
     | Successful
-    | Failed 
+    | Failed
+    
+    member this.Serialise () =
+        match this with
+        | Requested -> "Requested"
+        | Processing -> "Processing"
+        | Successful -> "Successful"
+        | Failed -> "Failed"
+        
+    static member Deserialise = function
+        | "Requested" -> Requested
+        | "Processing" -> Processing
+        | "Successful" -> Successful
+        | "Failed" -> Failed
+        | unknownStatus -> failwithf $"Unknown status: {unknownStatus}"
 
 type Reservation =
     {

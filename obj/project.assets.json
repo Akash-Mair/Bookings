@@ -2519,6 +2519,31 @@
           "lib/netstandard2.0/Newtonsoft.Json.Bson.dll": {}
         }
       },
+      "Npgsql/6.0.5": {
+        "type": "package",
+        "dependencies": {
+          "System.Runtime.CompilerServices.Unsafe": "6.0.0"
+        },
+        "compile": {
+          "lib/net6.0/Npgsql.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/Npgsql.dll": {}
+        }
+      },
+      "Npgsql.FSharp/5.2.0": {
+        "type": "package",
+        "dependencies": {
+          "FSharp.Core": "6.0.2",
+          "Npgsql": "6.0.5"
+        },
+        "compile": {
+          "lib/net6.0/Npgsql.FSharp.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/Npgsql.FSharp.dll": {}
+        }
+      },
       "Remotion.Linq/2.2.0": {
         "type": "package",
         "dependencies": {
@@ -6407,6 +6432,44 @@
         "paket-installmodel.cache"
       ]
     },
+    "Npgsql/6.0.5": {
+      "sha512": "a11H5/b5yNTuFN0Ycjvb920oI6vQHadt6KhEMmcC7DfvsSHH8Z3wBam+CHmyWcfDxJJaxamcdBb8XA3BvqS4Kw==",
+      "type": "package",
+      "path": "npgsql/6.0.5",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/net5.0/Npgsql.dll",
+        "lib/net5.0/Npgsql.xml",
+        "lib/net6.0/Npgsql.dll",
+        "lib/net6.0/Npgsql.xml",
+        "lib/netcoreapp3.1/Npgsql.dll",
+        "lib/netcoreapp3.1/Npgsql.xml",
+        "lib/netstandard2.0/Npgsql.dll",
+        "lib/netstandard2.0/Npgsql.xml",
+        "lib/netstandard2.1/Npgsql.dll",
+        "lib/netstandard2.1/Npgsql.xml",
+        "npgsql.6.0.5.nupkg.sha512",
+        "npgsql.nuspec",
+        "paket-installmodel.cache",
+        "postgresql.png"
+      ]
+    },
+    "Npgsql.FSharp/5.2.0": {
+      "sha512": "iqPY0n42V6b6VGVC6VTi7keP9AVEi4pOjQz1xOvIXfKml7xr3G4N4k7XYDqldQ0ZLW1GF6RWq5h0EeQkeEVd2A==",
+      "type": "package",
+      "path": "npgsql.fsharp/5.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net6.0/Npgsql.FSharp.dll",
+        "lib/net6.0/Npgsql.FSharp.xml",
+        "npgsql.fsharp.5.2.0.nupkg.sha512",
+        "npgsql.fsharp.nuspec",
+        "paket-installmodel.cache"
+      ]
+    },
     "Remotion.Linq/2.2.0": {
       "sha512": "fK/76UmpC0FXBlGDFVPLJHQlDLYnGC+XY3eoDgCgbtrhi0vzbXDQ3n/IYHhqSKqXQfGw/u04A1drWs7rFVkRjw==",
       "type": "package",
@@ -9628,6 +9691,8 @@
       "Microsoft.Win32.Registry >= 5.0.0",
       "Newtonsoft.Json >= 13.0.1",
       "Newtonsoft.Json.Bson >= 1.0.2",
+      "Npgsql >= 6.0.5",
+      "Npgsql.FSharp >= 5.2.0",
       "Remotion.Linq >= 2.2.0",
       "System.Buffers >= 4.5.1",
       "System.Collections >= 4.3.0",
@@ -10596,6 +10661,16 @@
           "Newtonsoft.Json.Bson": {
             "target": "Package",
             "version": "[1.0.2, )",
+            "generatePathProperty": true
+          },
+          "Npgsql": {
+            "target": "Package",
+            "version": "[6.0.5, )",
+            "generatePathProperty": true
+          },
+          "Npgsql.FSharp": {
+            "target": "Package",
+            "version": "[5.2.0, )",
             "generatePathProperty": true
           },
           "Remotion.Linq": {

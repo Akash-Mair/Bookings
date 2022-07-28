@@ -298,6 +298,12 @@
         <PackageReference Include="Microsoft.Net.Http.Headers">
             <Version>2.2.8</Version>
         </PackageReference>
+        <PackageReference Include="Npgsql">
+            <Version>6.0.5</Version>
+        </PackageReference>
+        <PackageReference Include="Npgsql.FSharp">
+            <Version>5.2</Version>
+        </PackageReference>
         <PackageReference Include="System.Collections.Immutable">
             <Version>6.0</Version>
         </PackageReference>

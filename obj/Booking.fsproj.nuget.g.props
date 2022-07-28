@@ -7,7 +7,7 @@
     <NuGetPackageRoot Condition=" '$(NuGetPackageRoot)' == '' ">$(UserProfile)\.nuget\packages\</NuGetPackageRoot>
     <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">C:\Users\Akash\.nuget\packages\</NuGetPackageFolders>
     <NuGetProjectStyle Condition=" '$(NuGetProjectStyle)' == '' ">PackageReference</NuGetProjectStyle>
-    <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">6.1.0</NuGetToolVersion>
+    <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">6.0.0</NuGetToolVersion>
   </PropertyGroup>
   <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <SourceRoot Include="C:\Users\Akash\.nuget\packages\" />
@@ -103,6 +103,9 @@
     <PkgSystem_ComponentModel_Annotations Condition=" '$(PkgSystem_ComponentModel_Annotations)' == '' ">C:\Users\Akash\.nuget\packages\system.componentmodel.annotations\5.0.0</PkgSystem_ComponentModel_Annotations>
     <PkgSystem_Buffers Condition=" '$(PkgSystem_Buffers)' == '' ">C:\Users\Akash\.nuget\packages\system.buffers\4.5.1</PkgSystem_Buffers>
     <PkgRemotion_Linq Condition=" '$(PkgRemotion_Linq)' == '' ">C:\Users\Akash\.nuget\packages\remotion.linq\2.2.0</PkgRemotion_Linq>
+    <PkgNpgsql Condition=" '$(PkgNpgsql)' == '' ">C:\Users\Akash\.nuget\packages\npgsql\6.0.5</PkgNpgsql>
+    <PkgFSharp_Core Condition=" '$(PkgFSharp_Core)' == '' ">C:\Users\Akash\.nuget\packages\fsharp.core\6.0.5</PkgFSharp_Core>
+    <PkgNpgsql_FSharp Condition=" '$(PkgNpgsql_FSharp)' == '' ">C:\Users\Akash\.nuget\packages\npgsql.fsharp\5.2.0</PkgNpgsql_FSharp>
     <PkgNewtonsoft_Json Condition=" '$(PkgNewtonsoft_Json)' == '' ">C:\Users\Akash\.nuget\packages\newtonsoft.json\13.0.1</PkgNewtonsoft_Json>
     <PkgNewtonsoft_Json_Bson Condition=" '$(PkgNewtonsoft_Json_Bson)' == '' ">C:\Users\Akash\.nuget\packages\newtonsoft.json.bson\1.0.2</PkgNewtonsoft_Json_Bson>
     <PkgMicrosoft_Extensions_Primitives Condition=" '$(PkgMicrosoft_Extensions_Primitives)' == '' ">C:\Users\Akash\.nuget\packages\microsoft.extensions.primitives\2.2.0</PkgMicrosoft_Extensions_Primitives>
@@ -264,7 +267,6 @@
     <PkgMicrosoft_AspNetCore_Authentication_Facebook Condition=" '$(PkgMicrosoft_AspNetCore_Authentication_Facebook)' == '' ">C:\Users\Akash\.nuget\packages\microsoft.aspnetcore.authentication.facebook\2.2.0</PkgMicrosoft_AspNetCore_Authentication_Facebook>
     <PkgMicrosoft_AspNetCore Condition=" '$(PkgMicrosoft_AspNetCore)' == '' ">C:\Users\Akash\.nuget\packages\microsoft.aspnetcore\2.2.0</PkgMicrosoft_AspNetCore>
     <PkgMicrosoft_AspNet_WebApi_Client Condition=" '$(PkgMicrosoft_AspNet_WebApi_Client)' == '' ">C:\Users\Akash\.nuget\packages\microsoft.aspnet.webapi.client\5.2.9</PkgMicrosoft_AspNet_WebApi_Client>
-    <PkgFSharp_Core Condition=" '$(PkgFSharp_Core)' == '' ">C:\Users\Akash\.nuget\packages\fsharp.core\6.0.5</PkgFSharp_Core>
     <PkgGiraffe_ViewEngine Condition=" '$(PkgGiraffe_ViewEngine)' == '' ">C:\Users\Akash\.nuget\packages\giraffe.viewengine\1.4.0</PkgGiraffe_ViewEngine>
     <PkgGiraffe Condition=" '$(PkgGiraffe)' == '' ">C:\Users\Akash\.nuget\packages\giraffe\6.0.0</PkgGiraffe>
   </PropertyGroup>

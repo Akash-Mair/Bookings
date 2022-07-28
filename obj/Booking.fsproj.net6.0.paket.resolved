@@ -95,6 +95,8 @@ Microsoft.Extensions.Logging.Configuration,2.2,Transitive,Main,false,true,false,
 Microsoft.Extensions.Logging.Console,2.2,Transitive,Main,false,true,false,true
 Microsoft.Extensions.Options.DataAnnotations,2.2,Transitive,Main,false,true,false,true
 Microsoft.Net.Http.Headers,2.2.8,Transitive,Main,false,true,false,true
+Npgsql,6.0.5,Transitive,Main,false,true,false,true
+Npgsql.FSharp,5.2,Direct,Main,false,true,false,true
 System.Collections.Immutable,6.0,Transitive,Main,false,true,false,true
 System.Diagnostics.DiagnosticSource,6.0,Transitive,Main,false,true,false,true
 Microsoft.Extensions.DiagnosticAdapter,2.2,Transitive,Main,false,true,false,true
