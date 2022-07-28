@@ -1,7 +1,6 @@
 ﻿module Data.Reservations
 
 open System
-open System.Threading.Tasks
 open Data.Common
 open Domain
 open Npgsql.FSharp
