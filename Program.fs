@@ -6,9 +6,6 @@ open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Hosting
 open Giraffe.EndpointRouting
 
-type HttpContext with
-    member ctx.Config =
-        ctx.GetService<IConfiguration>()
         
 let handler1 : HttpHandler =
     fun (_ : HttpFunc) (ctx : HttpContext) ->
@@ -36,10 +33,8 @@ let endpoints =
             routef "/%s/%i" handler2
             routef "/%s/%s/%s/%i" handler3
         ]
-        GET_HEAD [
-            route "/foo" (text "Bar")
-            route "/x"   (text "y")
-            route "/abc" (text "def")
+        POST [
+            route "/reservation" Reservations.requestReservation
         ]
         // Not specifying a http verb means it will listen to all verbs
         subRoute "/sub" [

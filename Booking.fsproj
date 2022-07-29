@@ -16,6 +16,8 @@
     <Compile Include="DataAccess\Data.Reservations.fs" />
     <Compile Include="DataAccess\Data.Bookings.fs" />
     <Compile Include="Config.fs" />
+    <Compile Include="Reservations.fs" />
+    <Compile Include="Bookings.fs" />
     <Compile Include="Program.fs" />
     <Content Include="appsettings.json" />
 
