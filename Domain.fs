@@ -48,9 +48,23 @@ type Reservation =
         SpecialRequest: string option
         Status: ReservationStatus
         LocationId: LocationId
+        CreatedOn: DateTime
     }
 
-type BookingId = BookingId of Guid
+type ReservationRequest =
+       {
+        Id: ReservationId
+        Date: DateOnly
+        Time: TimeOnly
+        Seats: int
+        SpecialRequest: string option
+        Status: ReservationStatus
+        LocationId: LocationId
+    } 
+
+type BookingId =
+    | BookingId of Guid
+    member this.Value = match this with BookingId id -> id 
 
 type Booking =
     {
@@ -59,8 +73,20 @@ type Booking =
         Time: TimeOnly
         Seats: int
         SpecialRequest: string option
-        Location: LocationId 
-        Reservation: ReservationId
+        LocationId: LocationId 
+        ReservationId: ReservationId
+        CreatedOn: DateTime
+    }
+
+type BookingRequest =
+    {
+        Id: BookingId
+        Date: DateOnly
+        Time: TimeOnly
+        Seats: int
+        SpecialRequest: string option
+        LocationId: LocationId 
+        ReservationId: ReservationId
     }
 
 

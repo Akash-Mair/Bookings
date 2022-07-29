@@ -18,8 +18,29 @@ let getAllReservations (DbConnectionString connStr) =
             SpecialRequest = read.stringOrNone "SpecialRequest"
             LocationId = read.uuid "LocationId" |> LocationId
             Status = read.string "Status" |> ReservationStatus.Deserialise
+            CreatedOn = read.dateTime "CreatedOn"
         })
 
+let getReservationById (DbConnectionString connStr) (ReservationId id) = task {
+    let! reservations = 
+        connStr
+        |> Sql.connect
+        |> Sql.query "SELECT * FROM Reservations WHERE Id = @Id"
+        |> Sql.parameters [ "Id", Sql.uuid id ]
+        |> Sql.executeAsync (fun read ->
+            {
+                Id = read.uuid "Id" |> ReservationId
+                Date = read.dateTime("RequestedBookingDateTime") |> DateOnly.FromDateTime
+                Time = read.dateTime("RequestedBookingDateTime") |> TimeOnly.FromDateTime
+                Seats = read.int "Seats"
+                SpecialRequest = read.stringOrNone "SpecialRequest"
+                LocationId = read.uuid "LocationId" |> LocationId
+                Status = read.string "Status" |> ReservationStatus.Deserialise
+                CreatedOn = read.dateTime "CreatedOn"
+            })
+    
+    return reservations |> List.tryHead
+}
 
 let updateReservationStatus (DbConnectionString connStr) (ReservationId id) (status: ReservationStatus) =
     connStr
@@ -28,7 +49,7 @@ let updateReservationStatus (DbConnectionString connStr) (ReservationId id) (sta
     |> Sql.parameters [ "@Status", Sql.string (status.Serialise()); "@ReservationId", Sql.uuid id ]
     |> Sql.executeNonQueryAsync
 
-let createReservation (DbConnectionString connStr) (reservation: Reservation) =
+let createReservation (DbConnectionString connStr) (reservation: ReservationRequest) =
     connStr
     |> Sql.connect
     |> Sql.query "INSERT INTO Reservations(Id, RequestedBookingDateTime, Seats, SpecialRequest, LocationId, Status) VALUES (@Id, @RequestedBookingDateTime, @Seats, @SpecialRequest, @LocationId, @Status)"
@@ -42,4 +63,3 @@ let createReservation (DbConnectionString connStr) (reservation: Reservation) =
                "Status", Sql.string (reservation.Status.Serialise ())
            ]
     |> Sql.executeNonQueryAsync
-    
