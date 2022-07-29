@@ -2,7 +2,10 @@
 
 open System
 
-type LocationId = LocationId of Guid 
+type LocationId =
+    | LocationId of Guid
+    member this.Value = match this with LocationId id -> id 
+    
 type LocationName = LocationName of string
 
 type Location =
@@ -11,7 +14,11 @@ type Location =
         Id: LocationId
     }
 
-type ReservationId = ReservationId of Guid
+type ReservationId =
+    | ReservationId of Guid
+    
+    member this.Value = match this with ReservationId id -> id 
+    
 type ReservationStatus =
     | Requested
     | Processing
@@ -40,7 +47,7 @@ type Reservation =
         Seats: int
         SpecialRequest: string option
         Status: ReservationStatus
-        Location: LocationId
+        LocationId: LocationId
     }
 
 type BookingId = BookingId of Guid
