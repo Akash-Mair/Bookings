@@ -8,7 +8,7 @@ open Npgsql.FSharp
 let getAllReservations (DbConnectionString connStr) = 
     connStr
     |> Sql.connect
-    |> Sql.query "SELECT * FROM Reservations"
+    |> Sql.query "SELECT * FROM booking.Reservations"
     |> Sql.executeAsync (fun read ->
         {
             Id = read.uuid "Id" |> ReservationId
@@ -25,7 +25,7 @@ let getReservationById (DbConnectionString connStr) (ReservationId id) = task {
     let! reservations = 
         connStr
         |> Sql.connect
-        |> Sql.query "SELECT * FROM Reservations WHERE Id = @Id"
+        |> Sql.query "SELECT * FROM booking.Reservations WHERE Id = @Id"
         |> Sql.parameters [ "Id", Sql.uuid id ]
         |> Sql.executeAsync (fun read ->
             {
@@ -45,14 +45,14 @@ let getReservationById (DbConnectionString connStr) (ReservationId id) = task {
 let updateReservationStatus (DbConnectionString connStr) (ReservationId id) (status: ReservationStatus) =
     connStr
     |> Sql.connect
-    |> Sql.query "UPDATE Reservations SET Status = @Status WHERE Id = @ReservationId"
+    |> Sql.query "UPDATE booking.Reservations SET Status = @Status WHERE Id = @ReservationId"
     |> Sql.parameters [ "@Status", Sql.string (status.Serialise()); "@ReservationId", Sql.uuid id ]
     |> Sql.executeNonQueryAsync
 
 let createReservation (DbConnectionString connStr) (reservation: ReservationRequest) =
     connStr
     |> Sql.connect
-    |> Sql.query "INSERT INTO Reservations(Id, RequestedBookingDateTime, Seats, SpecialRequest, LocationId, Status) VALUES (@Id, @RequestedBookingDateTime, @Seats, @SpecialRequest, @LocationId, @Status)"
+    |> Sql.query "INSERT INTO booking.Reservations(Id, RequestedBookingDateTime, Seats, SpecialRequest, LocationId, Status) VALUES (@Id, @RequestedBookingDateTime, @Seats, @SpecialRequest, @LocationId, @Status)"
     |> Sql.parameters
            [
                "Id", Sql.uuid reservation.Id.Value

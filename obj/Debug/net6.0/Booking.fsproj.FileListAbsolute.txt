@@ -118,3 +118,5 @@ C:\Users\Akash\Documents\code\learning\Booking\Booking\obj\Debug\net6.0\Booking.
 C:\Users\Akash\Documents\code\learning\Booking\Booking\obj\Debug\net6.0\Booking.dll
 C:\Users\Akash\Documents\code\learning\Booking\Booking\obj\Debug\net6.0\Booking.pdb
 C:\Users\Akash\Documents\code\learning\Booking\Booking\obj\Debug\net6.0\Booking.genruntimeconfig.cache
+C:\Users\Akash\Documents\code\learning\Booking\Booking\bin\Debug\net6.0\Npgsql.dll
+C:\Users\Akash\Documents\code\learning\Booking\Booking\bin\Debug\net6.0\Npgsql.FSharp.dll

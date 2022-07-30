@@ -4,12 +4,10 @@ open System
 open Data.Common
 open Domain
 open Giraffe
-open Microsoft.AspNetCore.Http
 open Config
-open Microsoft.Extensions.Configuration 
 
 module Dto =
-    type ReservationRequestDto =
+    type ReservationRequest =
         {|
             Id: Guid
             Date: DateOnly
@@ -20,7 +18,7 @@ module Dto =
             Status: string 
         |}
     
-    let reservationRequestDtoToDomain (dto: ReservationRequestDto) =
+    let reservationRequestDtoToDomain (dto: ReservationRequest) =
         {
             Id = ReservationId dto.Id
             Date = dto.Date
@@ -31,15 +29,29 @@ module Dto =
             LocationId = LocationId dto.LocationId
         }
 
-type HttpContext with
-    member ctx.Config =
-        ctx.GetService<IConfiguration>()
-
 let requestReservation : HttpHandler =
     fun next ctx -> task {
         let dbConnStr = DbConnectionString ctx.Config.DbConnectionString
-        let! reservationRequestDto = ctx.BindJsonAsync<Dto.ReservationRequestDto>()
+        let! reservationRequestDto = ctx.BindJsonAsync<Dto.ReservationRequest>()
         let reservationRequest = Dto.reservationRequestDtoToDomain reservationRequestDto
         let! _ = Data.Reservations.createReservation dbConnStr reservationRequest 
         return! Successful.CREATED reservationRequestDto.Id next ctx 
+    }
+    
+let getAllReservations : HttpHandler =
+    fun next ctx -> task {
+        let dbConnStr = DbConnectionString ctx.Config.DbConnectionString
+        let! reservations = Data.Reservations.getAllReservations dbConnStr  
+        return! json (List.toArray reservations) next ctx 
+    }
+
+let getReservationById (id: string) : HttpHandler =
+    fun next ctx -> task {
+        let dbConnStr = DbConnectionString ctx.Config.DbConnectionString
+        let reservationId = (ReservationId (Guid id)) 
+        match! Data.Reservations.getReservationById dbConnStr reservationId with
+        | Some reservation ->
+            return! json reservation next ctx
+        | None ->
+            return! text "That reservation does not exist" next ctx 
     }
