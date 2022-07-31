@@ -8,7 +8,7 @@ let endpoints =
     [
         GET [
             route "/reservations" Reservations.getAllReservations
-            routef "/reservation/%s" Reservations.getReservationById
+            routef "/reservations/%s" Reservations.getReservationById
             route "/bookings" Bookings.getAllBookings
             routef "/bookings/%s" Bookings.getBookingById
         ]

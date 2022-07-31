@@ -50,6 +50,18 @@ type Reservation =
         LocationId: LocationId
         CreatedOn: DateTime
     }
+    
+    member this.Serialise () =
+        {|
+            Id = this.Id.Value
+            Date = this.Date.ToShortDateString()
+            Time = this.Time.ToShortTimeString()
+            Seat = this.Seats
+            SpecialRequest = this.SpecialRequest |> Option.defaultValue String.Empty
+            LocationId = this.LocationId.Value
+            CreatedOn = this.CreatedOn.ToString()
+            Status = this.Status.Serialise ()
+        |}
 
 type ReservationRequest =
        {
@@ -77,6 +89,18 @@ type Booking =
         ReservationId: ReservationId
         CreatedOn: DateTime
     }
+    
+    member this.Serialise () =
+        {|
+            Id = this.Id.Value
+            Date = this.Date.ToShortDateString()
+            Time = this.Time.ToShortTimeString()
+            Seat = this.Seats
+            SpecialRequest = this.SpecialRequest |> Option.defaultValue String.Empty
+            LocationId = this.LocationId.Value
+            CreatedOn = this.CreatedOn.ToString()
+            ReservationId = this.ReservationId.Value
+        |}
 
 type BookingRequest =
     {

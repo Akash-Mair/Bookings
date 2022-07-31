@@ -9,6 +9,7 @@
     <Content Include="Flyway\sql\V1__InitialSetup.sql" />
     <Content Include="Flyway\sql\V2__UsingTimeSpan.sql" />
     <Content Include="Flyway\sql\V3__AddingCapacityToLocation.sql" />
+    <Content Include="Flyway\sql\V4__SeedLocationData.sql" />
     <Content Include="Flyway\conf\flyway.conf" />
     <Content Include="Database\initDB.sql" />
     <None Include="paket.references" />

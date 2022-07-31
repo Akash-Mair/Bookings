@@ -11,10 +11,10 @@ module Dto =
     type BookingRequest =
         {|
             Id: Guid
-            Date: DateOnly
-            Time: TimeOnly
+            Date: string 
+            Time: string 
             Seats: int
-            SpecialRequest: string option
+            SpecialRequest: string
             LocationId: Guid
             ReservationId: Guid 
         |}
@@ -22,10 +22,14 @@ module Dto =
     let bookingRequestDtoToDomain (dto: BookingRequest) =
         {
             Id = BookingId dto.Id
-            Date = dto.Date
-            Time = dto.Time
+            Date = DateOnly.Parse(dto.Date)
+            Time = TimeOnly.Parse(dto.Time)
             Seats = dto.Seats
-            SpecialRequest = dto.SpecialRequest
+            SpecialRequest =
+                if String.IsNullOrEmpty dto.SpecialRequest then
+                    None
+                else
+                    Some dto.SpecialRequest
             LocationId = LocationId dto.LocationId
             ReservationId = ReservationId dto.ReservationId
         }
@@ -55,11 +59,8 @@ let getBookingById (id: string) : HttpHandler =
     fun next ctx -> task {
         let dbConnStr = DbConnectionString ctx.Config.DbConnectionString
         let bookingId = BookingId (Guid id)
-        match! Data.Bookings.getBookingById dbConnStr bookingId with
-        | Some booking ->
-            return! json booking next ctx
-        | None ->
-            return! text "That booking does not exist" next ctx 
+        let! booking = Data.Bookings.getBookingById dbConnStr bookingId
+        return! json booking next ctx
     }
 
 

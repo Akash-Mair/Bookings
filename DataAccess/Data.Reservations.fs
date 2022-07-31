@@ -5,54 +5,47 @@ open Data.Common
 open Domain
 open Npgsql.FSharp
 
+let readReservation (read: RowReader) = 
+    {
+        Id = read.uuid "id" |> ReservationId
+        Date = read.dateTime "requestedbookingdatetime" |> DateOnly.FromDateTime
+        Time = read.dateTime "requestedbookingdatetime" |> TimeOnly.FromDateTime
+        Seats = read.int "seats"
+        SpecialRequest = read.textOrNone "specialrequest"
+        LocationId = read.uuid "locationid" |> LocationId
+        Status = read.text "status" |> ReservationStatus.Deserialise
+        CreatedOn = read.dateTime "createdon"
+    }
+
 let getAllReservations (DbConnectionString connStr) = 
     connStr
     |> Sql.connect
     |> Sql.query "SELECT * FROM booking.Reservations"
-    |> Sql.executeAsync (fun read ->
-        {
-            Id = read.uuid "Id" |> ReservationId
-            Date = read.dateTime("RequestedBookingDateTime") |> DateOnly.FromDateTime
-            Time = read.dateTime("RequestedBookingDateTime") |> TimeOnly.FromDateTime
-            Seats = read.int "Seats"
-            SpecialRequest = read.stringOrNone "SpecialRequest"
-            LocationId = read.uuid "LocationId" |> LocationId
-            Status = read.string "Status" |> ReservationStatus.Deserialise
-            CreatedOn = read.dateTime "CreatedOn"
-        })
+    |> Sql.executeAsync readReservation
 
-let getReservationById (DbConnectionString connStr) (ReservationId id) = task {
-    let! reservations = 
-        connStr
-        |> Sql.connect
-        |> Sql.query "SELECT * FROM booking.Reservations WHERE Id = @Id"
-        |> Sql.parameters [ "Id", Sql.uuid id ]
-        |> Sql.executeAsync (fun read ->
-            {
-                Id = read.uuid "Id" |> ReservationId
-                Date = read.dateTime("RequestedBookingDateTime") |> DateOnly.FromDateTime
-                Time = read.dateTime("RequestedBookingDateTime") |> TimeOnly.FromDateTime
-                Seats = read.int "Seats"
-                SpecialRequest = read.stringOrNone "SpecialRequest"
-                LocationId = read.uuid "LocationId" |> LocationId
-                Status = read.string "Status" |> ReservationStatus.Deserialise
-                CreatedOn = read.dateTime "CreatedOn"
-            })
-    
-    return reservations |> List.tryHead
-}
+let getReservationById (DbConnectionString connStr) (ReservationId id) =
+    connStr
+    |> Sql.connect
+    |> Sql.query "SELECT * FROM booking.Reservations WHERE Id = @ResId"
+    |> Sql.parameters [ "@ResId", Sql.uuid id ]
+    |> Sql.executeRowAsync readReservation
 
 let updateReservationStatus (DbConnectionString connStr) (ReservationId id) (status: ReservationStatus) =
     connStr
     |> Sql.connect
     |> Sql.query "UPDATE booking.Reservations SET Status = @Status WHERE Id = @ReservationId"
-    |> Sql.parameters [ "@Status", Sql.string (status.Serialise()); "@ReservationId", Sql.uuid id ]
+    |> Sql.parameters
+           [
+               "@Status", Sql.string (status.Serialise())
+               "@ReservationId", Sql.uuid id
+           ]
     |> Sql.executeNonQueryAsync
 
 let createReservation (DbConnectionString connStr) (reservation: ReservationRequest) =
     connStr
     |> Sql.connect
-    |> Sql.query "INSERT INTO booking.Reservations(Id, RequestedBookingDateTime, Seats, SpecialRequest, LocationId, Status) VALUES (@Id, @RequestedBookingDateTime, @Seats, @SpecialRequest, @LocationId, @Status)"
+    |> Sql.query
+           "INSERT INTO booking.Reservations(Id, RequestedBookingDateTime, Seats, SpecialRequest, LocationId, Status) VALUES (@Id, @RequestedBookingDateTime, @Seats, @SpecialRequest, @LocationId, @Status)"
     |> Sql.parameters
            [
                "Id", Sql.uuid reservation.Id.Value

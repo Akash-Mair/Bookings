@@ -10,22 +10,25 @@ module Dto =
     type ReservationRequest =
         {|
             Id: Guid
-            Date: DateOnly
-            Time: TimeOnly
+            Date: string
+            Time: string 
             Seats: int
-            SpecialRequest: string option
-            LocationId: Guid
-            Status: string 
+            SpecialRequest: string
+            LocationId: Guid 
         |}
     
     let reservationRequestDtoToDomain (dto: ReservationRequest) =
         {
             Id = ReservationId dto.Id
-            Date = dto.Date
-            Time = dto.Time
-            Status = dto.Status |> ReservationStatus.Deserialise
+            Date = DateOnly.Parse dto.Date
+            Time = TimeOnly.Parse dto.Time
+            Status = Requested
             Seats = dto.Seats
-            SpecialRequest = dto.SpecialRequest
+            SpecialRequest =
+                if String.IsNullOrEmpty dto.SpecialRequest then
+                    None
+                else
+                    Some dto.SpecialRequest
             LocationId = LocationId dto.LocationId
         }
 
@@ -35,23 +38,24 @@ let requestReservation : HttpHandler =
         let! reservationRequestDto = ctx.BindJsonAsync<Dto.ReservationRequest>()
         let reservationRequest = Dto.reservationRequestDtoToDomain reservationRequestDto
         let! _ = Data.Reservations.createReservation dbConnStr reservationRequest 
-        return! Successful.CREATED reservationRequestDto.Id next ctx 
+        return! Successful.CREATED reservationRequest.Id.Value next ctx 
     }
     
 let getAllReservations : HttpHandler =
     fun next ctx -> task {
         let dbConnStr = DbConnectionString ctx.Config.DbConnectionString
-        let! reservations = Data.Reservations.getAllReservations dbConnStr  
-        return! json (List.toArray reservations) next ctx 
+        let! reservations = Data.Reservations.getAllReservations dbConnStr
+        let serialisedReservations =
+            reservations
+            |> List.map (fun r -> r.Serialise())
+            |> List.toArray
+        return! json serialisedReservations next ctx 
     }
 
 let getReservationById (id: string) : HttpHandler =
     fun next ctx -> task {
         let dbConnStr = DbConnectionString ctx.Config.DbConnectionString
         let reservationId = (ReservationId (Guid id)) 
-        match! Data.Reservations.getReservationById dbConnStr reservationId with
-        | Some reservation ->
-            return! json reservation next ctx
-        | None ->
-            return! text "That reservation does not exist" next ctx 
+        let! res = Data.Reservations.getReservationById dbConnStr reservationId 
+        return! json (res.Serialise()) next ctx
     }
