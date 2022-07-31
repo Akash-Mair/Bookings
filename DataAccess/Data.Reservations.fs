@@ -63,14 +63,8 @@ let createReservation (DbConnectionString connStr) (sqsClient: IAmazonSQS) (rese
         |> Sql.executeNonQueryAsync
     if affectedRows > 0 then
         let queueName = "reservation-queue"
-        try 
-            let! reservationQueue = sqsClient.GetQueueUrlAsync queueName
-            let! _ = sqsClient.SendMessageAsync(reservationQueue.QueueUrl, $"{reservation.Id.Value}")
-            ()
-        with
-        | _ -> 
-            let! reservationQueue = sqsClient.CreateQueueAsync queueName
-            let! _ = sqsClient.SendMessageAsync(reservationQueue.QueueUrl, $"{reservation.Id.Value}")
-            ()
+        let! reservationQueue = sqsClient.CreateQueueAsync queueName
+        let! _ = sqsClient.SendMessageAsync(reservationQueue.QueueUrl, $"{reservation.Id.Value}")
+        ()
     transaction.Complete()
 }

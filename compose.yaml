@@ -18,17 +18,9 @@ services:
       POSTGRES_PASSWORD: mysecretpassword
     ports:
       - 5432:5432
-#  sqs:
-#    container_name: queue-service
-#    image: softwaremill/elasticmq-native
-#    ports:
-#      - 9324:9324
-#      - 9325:9325
-#    volumes:
-#      - ./SQS/custom.conf:/opt/elasticmq.conf
   localStack:
     container_name: localStack
-    image: localstack/localstack
+    image: localstack/localstack:0.14.5
     ports:
       - 4566:4566
     environment: 
