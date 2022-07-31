@@ -1,9 +1,12 @@
 ﻿module Data.Reservations
 
 open System
+open System.ComponentModel
+open System.Transactions
 open Data.Common
 open Domain
 open Npgsql.FSharp
+open Amazon.SQS
 
 let readReservation (read: RowReader) = 
     {
@@ -41,18 +44,33 @@ let updateReservationStatus (DbConnectionString connStr) (ReservationId id) (sta
            ]
     |> Sql.executeNonQueryAsync
 
-let createReservation (DbConnectionString connStr) (reservation: ReservationRequest) =
-    connStr
-    |> Sql.connect
-    |> Sql.query
-           "INSERT INTO booking.Reservations(Id, RequestedBookingDateTime, Seats, SpecialRequest, LocationId, Status) VALUES (@Id, @RequestedBookingDateTime, @Seats, @SpecialRequest, @LocationId, @Status)"
-    |> Sql.parameters
-           [
-               "Id", Sql.uuid reservation.Id.Value
-               "RequestedBookingDateTime", Sql.timestamp (reservation.Date.ToDateTime(reservation.Time))
-               "Seats", Sql.int reservation.Seats
-               "SpecialRequest", Sql.stringOrNone reservation.SpecialRequest
-               "LocationId", Sql.uuid reservation.LocationId.Value
-               "Status", Sql.string (reservation.Status.Serialise ())
-           ]
-    |> Sql.executeNonQueryAsync
+let createReservation (DbConnectionString connStr) (sqsClient: IAmazonSQS) (reservation: ReservationRequest) = task {
+    use transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled)
+    let! affectedRows =
+        connStr
+        |> Sql.connect
+        |> Sql.query
+               "INSERT INTO booking.Reservations(Id, RequestedBookingDateTime, Seats, SpecialRequest, LocationId, Status) VALUES (@Id, @RequestedBookingDateTime, @Seats, @SpecialRequest, @LocationId, @Status)"
+        |> Sql.parameters
+               [
+                   "Id", Sql.uuid reservation.Id.Value
+                   "RequestedBookingDateTime", Sql.timestamp (reservation.Date.ToDateTime(reservation.Time))
+                   "Seats", Sql.int reservation.Seats
+                   "SpecialRequest", Sql.stringOrNone reservation.SpecialRequest
+                   "LocationId", Sql.uuid reservation.LocationId.Value
+                   "Status", Sql.string (reservation.Status.Serialise ())
+               ]
+        |> Sql.executeNonQueryAsync
+    if affectedRows > 0 then
+        let queueName = "reservation-queue"
+        try 
+            let! reservationQueue = sqsClient.GetQueueUrlAsync queueName
+            let! _ = sqsClient.SendMessageAsync(reservationQueue.QueueUrl, $"{reservation.Id.Value}")
+            ()
+        with
+        | _ -> 
+            let! reservationQueue = sqsClient.CreateQueueAsync queueName
+            let! _ = sqsClient.SendMessageAsync(reservationQueue.QueueUrl, $"{reservation.Id.Value}")
+            ()
+    transaction.Complete()
+}

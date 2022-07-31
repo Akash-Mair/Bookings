@@ -1,3 +1,5 @@
+AWSSDK.Core,3.7.12.16,Transitive,Main,false,true,false,true
+AWSSDK.SQS,3.7.2.84,Direct,Main,false,true,false,true
 FSharp.Core,6.0.5,Transitive,Main,false,true,false,true
 Giraffe.ViewEngine,1.4,Transitive,Main,false,true,false,true
 Microsoft.AspNetCore.Cryptography.Internal,2.2,Transitive,Main,false,true,false,true
@@ -60,6 +62,7 @@ Microsoft.AspNetCore.ResponseCaching.Abstractions,2.2,Transitive,Main,false,true
 Microsoft.AspNetCore.Server.Kestrel.Transport.Abstractions,2.2,Transitive,Main,false,true,false,true
 Microsoft.Extensions.Caching.Abstractions,2.2,Transitive,Main,false,true,false,true
 Microsoft.Extensions.Configuration.Abstractions,2.2,Transitive,Main,false,true,false,true
+AWSSDK.Extensions.NETCore.Setup,3.7.2,Direct,Main,false,true,false,true
 Microsoft.AspNetCore.Hosting.Server.Abstractions,2.2,Transitive,Main,false,true,false,true
 Microsoft.Extensions.Configuration,2.2,Transitive,Main,false,true,false,true
 Microsoft.Extensions.Configuration.Binder,2.2.4,Transitive,Main,false,true,false,true

@@ -1,3 +1,5 @@
 giraffe
 Microsoft.AspNetCore.App
 Npgsql.FSharp
+AWSSDK.SQS
+AWSSDK.Extensions.NETCore.Setup

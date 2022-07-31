@@ -22,6 +22,8 @@
     <Compile Include="Bookings.fs" />
     <Compile Include="Program.fs" />
     <Content Include="appsettings.json" />
+    <Content Include="SQS\custom.conf" />
+    <Content Include="SQS\create-queue.sh" />
 
   </ItemGroup>
   <Import Project="..\.paket\Paket.Restore.targets" />

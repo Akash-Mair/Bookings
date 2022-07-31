@@ -1,9 +1,13 @@
+open Amazon.Runtime
+open Amazon.SQS
 open Giraffe
 open Microsoft.AspNetCore.Builder
+open Microsoft.Extensions.Configuration
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Hosting
 open Giraffe.EndpointRouting
-        
+open Amazon.Extensions.NETCore.Setup
+
 let endpoints =
     [
         GET [
@@ -30,7 +34,13 @@ let configureApp (appBuilder : IApplicationBuilder) =
         .UseGiraffe(notFoundHandler)
 
 let configureServices (services : IServiceCollection) =
+    let config = services.BuildServiceProvider().GetService<IConfiguration>()
     services
+        .AddSingleton<IAmazonSQS>(
+            let config = AmazonSQSConfig(ServiceURL="http://localhost:4566")
+            new AmazonSQSClient(BasicAWSCredentials("temp", "temp"), config))
+//        .AddDefaultAWSOptions(config.GetAWSOptions("AWS"))
+//        .AddAWSService<IAmazonSQS>()
         .AddRouting()
         .AddGiraffe()
     |> ignore

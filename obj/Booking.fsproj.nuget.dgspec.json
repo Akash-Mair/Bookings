@@ -43,6 +43,21 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "AWSSDK.Core": {
+              "target": "Package",
+              "version": "[3.7.12.16, )",
+              "generatePathProperty": true
+            },
+            "AWSSDK.Extensions.NETCore.Setup": {
+              "target": "Package",
+              "version": "[3.7.2, )",
+              "generatePathProperty": true
+            },
+            "AWSSDK.SQS": {
+              "target": "Package",
+              "version": "[3.7.2.84, )",
+              "generatePathProperty": true
+            },
             "FSharp.Core": {
               "target": "Package",
               "version": "[6.0.5, )",

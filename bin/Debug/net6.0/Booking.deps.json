@@ -8,6 +8,9 @@
     ".NETCoreApp,Version=v6.0": {
       "Booking/1.0.0": {
         "dependencies": {
+          "AWSSDK.Core": "3.7.12.16",
+          "AWSSDK.Extensions.NETCore.Setup": "3.7.2",
+          "AWSSDK.SQS": "3.7.2.84",
           "FSharp.Core": "6.0.5",
           "Giraffe": "6.0.0",
           "Giraffe.ViewEngine": "1.4.0",
@@ -247,6 +250,39 @@
         },
         "runtime": {
           "Booking.dll": {}
+        }
+      },
+      "AWSSDK.Core/3.7.12.16": {
+        "runtime": {
+          "lib/netcoreapp3.1/AWSSDK.Core.dll": {
+            "assemblyVersion": "3.3.0.0",
+            "fileVersion": "3.7.12.16"
+          }
+        }
+      },
+      "AWSSDK.Extensions.NETCore.Setup/3.7.2": {
+        "dependencies": {
+          "AWSSDK.Core": "3.7.12.16",
+          "Microsoft.Extensions.Configuration.Abstractions": "2.2.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.2.0",
+          "Microsoft.Extensions.Logging.Abstractions": "2.2.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/AWSSDK.Extensions.NETCore.Setup.dll": {
+            "assemblyVersion": "3.3.0.0",
+            "fileVersion": "3.7.1.0"
+          }
+        }
+      },
+      "AWSSDK.SQS/3.7.2.84": {
+        "dependencies": {
+          "AWSSDK.Core": "3.7.12.16"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/AWSSDK.SQS.dll": {
+            "assemblyVersion": "3.3.0.0",
+            "fileVersion": "3.7.2.84"
+          }
         }
       },
       "FSharp.Core/6.0.5": {
@@ -2293,6 +2329,27 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "AWSSDK.Core/3.7.12.16": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6o20L6vXNHtRZ0Ir0QN3v7H+jy8+WUQXMN9tdDdIDj/NCacWU1BHHDEbpCTAV6UopRIFd+IulXGbHCfoLLbgDw==",
+      "path": "awssdk.core/3.7.12.16",
+      "hashPath": "awssdk.core.3.7.12.16.nupkg.sha512"
+    },
+    "AWSSDK.Extensions.NETCore.Setup/3.7.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-iFjbEnVB0f6Hr8L3EfdelHG7zxVQrOmeP9UIrX3IODR1eTsrqVrmq0mazdIr0GZK1YG2/DZiVt6tNyV1bayndw==",
+      "path": "awssdk.extensions.netcore.setup/3.7.2",
+      "hashPath": "awssdk.extensions.netcore.setup.3.7.2.nupkg.sha512"
+    },
+    "AWSSDK.SQS/3.7.2.84": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-5piq5b4Nlc3mmVytl8cTwe9pGMzthV3J5hJSVVGNveRChzvgVMh4V/+LUP1LVxA1N3q5rEpu3M6ymGoSY9ToqQ==",
+      "path": "awssdk.sqs/3.7.2.84",
+      "hashPath": "awssdk.sqs.3.7.2.84.nupkg.sha512"
     },
     "FSharp.Core/6.0.5": {
       "type": "package",

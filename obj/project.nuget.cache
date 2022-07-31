@@ -1,9 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "DSwcQaGo5c4B6SYQ1LqQ4EvqosDLoFgAHikzFIu9owWwgdo7KPIGdJqYyLE5ZhYD+I2EtMS9GRCetuuesBOQuw==",
+  "dgSpecHash": "EtdfmKTTN1qKJ+wzbN+EXtuvKXxocUc2jLanv65Khk3trpz4vbbPyfsDUhsrwiGl0MG7qtwMfmHejs/rcIuUQA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Akash\\Documents\\code\\learning\\Booking\\Booking\\Booking.fsproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Akash\\.nuget\\packages\\awssdk.core\\3.7.12.16\\awssdk.core.3.7.12.16.nupkg.sha512",
+    "C:\\Users\\Akash\\.nuget\\packages\\awssdk.extensions.netcore.setup\\3.7.2\\awssdk.extensions.netcore.setup.3.7.2.nupkg.sha512",
+    "C:\\Users\\Akash\\.nuget\\packages\\awssdk.sqs\\3.7.2.84\\awssdk.sqs.3.7.2.84.nupkg.sha512",
     "C:\\Users\\Akash\\.nuget\\packages\\fsharp.core\\6.0.5\\fsharp.core.6.0.5.nupkg.sha512",
     "C:\\Users\\Akash\\.nuget\\packages\\giraffe\\6.0.0\\giraffe.6.0.0.nupkg.sha512",
     "C:\\Users\\Akash\\.nuget\\packages\\giraffe.viewengine\\1.4.0\\giraffe.viewengine.1.4.0.nupkg.sha512",

@@ -5,6 +5,7 @@ open Data.Common
 open Domain
 open Giraffe
 open Config
+open Amazon.SQS
 
 module Dto =
     type ReservationRequest =
@@ -35,9 +36,12 @@ module Dto =
 let requestReservation : HttpHandler =
     fun next ctx -> task {
         let dbConnStr = DbConnectionString ctx.Config.DbConnectionString
+        let sqsClient = ctx.GetService<IAmazonSQS>()
+        printfn "service url: %A" (sqsClient.Config.ServiceURL)
+        
         let! reservationRequestDto = ctx.BindJsonAsync<Dto.ReservationRequest>()
         let reservationRequest = Dto.reservationRequestDtoToDomain reservationRequestDto
-        let! _ = Data.Reservations.createReservation dbConnStr reservationRequest 
+        do! Data.Reservations.createReservation dbConnStr sqsClient  reservationRequest 
         return! Successful.CREATED reservationRequest.Id.Value next ctx 
     }
     
