@@ -1,6 +1,7 @@
 ﻿module Reservations
 
 open System
+open System.Transactions
 open Data.Common
 open Domain
 open Giraffe
@@ -37,11 +38,18 @@ let requestReservation : HttpHandler =
     fun next ctx -> task {
         let dbConnStr = DbConnectionString ctx.Config.DbConnectionString
         let sqsClient = ctx.GetService<IAmazonSQS>()
-        printfn "service url: %A" (sqsClient.Config.ServiceURL)
         
         let! reservationRequestDto = ctx.BindJsonAsync<Dto.ReservationRequest>()
         let reservationRequest = Dto.reservationRequestDtoToDomain reservationRequestDto
-        do! Data.Reservations.createReservation dbConnStr sqsClient  reservationRequest 
+        
+        use transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled)
+        
+        let! affectedRows = Data.Reservations.createReservation dbConnStr reservationRequest
+        if affectedRows > 0 then
+            let! reservationQueue = sqsClient.GetQueueUrlAsync ReservationQueue
+            let! _ = sqsClient.SendMessageAsync(reservationQueue.QueueUrl, $"{reservationRequestDto.Id}")
+            ()
+        transaction.Complete()
         return! Successful.CREATED reservationRequest.Id.Value next ctx 
     }
     

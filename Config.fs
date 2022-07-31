@@ -14,3 +14,5 @@ type HttpContext with
     member ctx.Config =
         ctx.GetService<IConfiguration>()
 
+[<Literal>]
+let ReservationQueue = "reservation-queue"

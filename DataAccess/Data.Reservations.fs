@@ -44,9 +44,7 @@ let updateReservationStatus (DbConnectionString connStr) (ReservationId id) (sta
            ]
     |> Sql.executeNonQueryAsync
 
-let createReservation (DbConnectionString connStr) (sqsClient: IAmazonSQS) (reservation: ReservationRequest) = task {
-    use transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled)
-    let! affectedRows =
+let createReservation (DbConnectionString connStr) (reservation: ReservationRequest) = 
         connStr
         |> Sql.connect
         |> Sql.query
@@ -61,10 +59,3 @@ let createReservation (DbConnectionString connStr) (sqsClient: IAmazonSQS) (rese
                    "Status", Sql.string (reservation.Status.Serialise ())
                ]
         |> Sql.executeNonQueryAsync
-    if affectedRows > 0 then
-        let queueName = "reservation-queue"
-        let! reservationQueue = sqsClient.CreateQueueAsync queueName
-        let! _ = sqsClient.SendMessageAsync(reservationQueue.QueueUrl, $"{reservation.Id.Value}")
-        ()
-    transaction.Complete()
-}
