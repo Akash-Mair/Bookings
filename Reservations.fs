@@ -43,13 +43,13 @@ let requestReservation : HttpHandler =
         let reservationRequest = Dto.reservationRequestDtoToDomain reservationRequestDto
         
         use transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled)
-        
         let! affectedRows = Data.Reservations.createReservation dbConnStr reservationRequest
         if affectedRows > 0 then
             let! reservationQueue = sqsClient.GetQueueUrlAsync ReservationQueue
             let! _ = sqsClient.SendMessageAsync(reservationQueue.QueueUrl, $"{reservationRequestDto.Id}")
             ()
         transaction.Complete()
+        
         return! Successful.CREATED reservationRequest.Id.Value next ctx 
     }
     

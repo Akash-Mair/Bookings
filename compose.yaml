@@ -20,7 +20,7 @@ services:
       - 5432:5432
   localStack:
     container_name: localStack
-    image: localstack/localstack:0.14.5
+    image: localstack/localstack
     ports:
       - 4566:4566
     environment: 
