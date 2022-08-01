@@ -35,9 +35,10 @@ let configureApp (appBuilder : IApplicationBuilder) =
 
 let configureServices (services : IServiceCollection) =
     let config = services.BuildServiceProvider().GetService<IConfiguration>()
+    let serviceUrl = config.GetValue<string>("AWS:ServiceURL")
     services
         .AddSingleton<IAmazonSQS>(
-            let config = AmazonSQSConfig(ServiceURL="http://localhost:4566")
+            let config = AmazonSQSConfig(ServiceURL=serviceUrl)
             new AmazonSQSClient(BasicAWSCredentials("temp", "temp"), config))
 // TODO: Add an if prod env then use the below commented lines rather than the above
 //        .AddDefaultAWSOptions(config.GetAWSOptions("AWS"))
