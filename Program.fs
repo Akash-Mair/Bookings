@@ -39,6 +39,7 @@ let configureServices (services : IServiceCollection) =
         .AddSingleton<IAmazonSQS>(
             let config = AmazonSQSConfig(ServiceURL="http://localhost:4566")
             new AmazonSQSClient(BasicAWSCredentials("temp", "temp"), config))
+// TODO: Add an if prod env then use the below commented lines rather than the above
 //        .AddDefaultAWSOptions(config.GetAWSOptions("AWS"))
 //        .AddAWSService<IAmazonSQS>()
         .AddRouting()

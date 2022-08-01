@@ -10,7 +10,9 @@
     <Content Include="Flyway\sql\V2__UsingTimeSpan.sql" />
     <Content Include="Flyway\sql\V3__AddingCapacityToLocation.sql" />
     <Content Include="Flyway\sql\V4__SeedLocationData.sql" />
+    <Content Include="appsettings.json" />
     <Content Include="Flyway\conf\flyway.conf" />
+    <Content Include="SQS\create-queue.sh" />
     <Content Include="Database\initDB.sql" />
     <None Include="paket.references" />
     <Compile Include="Domain.fs" />
@@ -21,10 +23,6 @@
     <Compile Include="Reservations.fs" />
     <Compile Include="Bookings.fs" />
     <Compile Include="Program.fs" />
-    <Content Include="appsettings.json" />
-    <Content Include="SQS\custom.conf" />
-    <Content Include="SQS\create-queue.sh" />
-
   </ItemGroup>
   <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>
