@@ -38,24 +38,24 @@ let updateReservationStatus (DbConnectionString connStr) (ReservationId id) (sta
     |> Sql.connect
     |> Sql.query "UPDATE booking.Reservations SET Status = @Status WHERE Id = @ReservationId"
     |> Sql.parameters
-           [
-               "@Status", Sql.string (status.Serialise())
-               "@ReservationId", Sql.uuid id
-           ]
+       [
+           "@Status", Sql.string (status.Serialise())
+           "@ReservationId", Sql.uuid id
+       ]
     |> Sql.executeNonQueryAsync
 
 let createReservation (DbConnectionString connStr) (reservation: ReservationRequest) = 
         connStr
         |> Sql.connect
         |> Sql.query
-               "INSERT INTO booking.Reservations(Id, RequestedBookingDateTime, Seats, SpecialRequest, LocationId, Status) VALUES (@Id, @RequestedBookingDateTime, @Seats, @SpecialRequest, @LocationId, @Status)"
+            "INSERT INTO booking.Reservations(Id, RequestedBookingDateTime, Seats, SpecialRequest, LocationId, Status) VALUES (@Id, @RequestedBookingDateTime, @Seats, @SpecialRequest, @LocationId, @Status)"
         |> Sql.parameters
-               [
-                   "Id", Sql.uuid reservation.Id.Value
-                   "RequestedBookingDateTime", Sql.timestamp (reservation.Date.ToDateTime(reservation.Time))
-                   "Seats", Sql.int reservation.Seats
-                   "SpecialRequest", Sql.stringOrNone reservation.SpecialRequest
-                   "LocationId", Sql.uuid reservation.LocationId.Value
-                   "Status", Sql.string (reservation.Status.Serialise ())
-               ]
+           [
+               "Id", Sql.uuid reservation.Id.Value
+               "RequestedBookingDateTime", Sql.timestamp (reservation.Date.ToDateTime(reservation.Time))
+               "Seats", Sql.int reservation.Seats
+               "SpecialRequest", Sql.stringOrNone reservation.SpecialRequest
+               "LocationId", Sql.uuid reservation.LocationId.Value
+               "Status", Sql.string (reservation.Status.Serialise ())
+           ]
         |> Sql.executeNonQueryAsync
