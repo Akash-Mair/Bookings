@@ -7,6 +7,12 @@
       "commands": [
         "paket"
       ]
+    },
+    "amazon.lambda.tools": {
+      "version": "5.4.4",
+      "commands": [
+        "dotnet-lambda"
+      ]
     }
   }
 }

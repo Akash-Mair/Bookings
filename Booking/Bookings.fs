@@ -2,6 +2,7 @@
 
 open System
 open System.Transactions
+open Amazon.Runtime.Internal
 open Data.Common
 open Domain
 open Giraffe
@@ -61,6 +62,20 @@ let getBookingById (id: string) : HttpHandler =
         let bookingId = BookingId (Guid id)
         let! booking = Data.Bookings.getBookingById dbConnStr bookingId
         return! json booking next ctx
+    }
+
+let getAllBookingsByDateBeforeTime : HttpHandler =
+    fun next ctx -> task {
+        let dbConnStr = DbConnectionString ctx.Config.DbConnectionString
+        
+        let! reservationRequestDateTime = ctx.BindJsonAsync<{| Date: string; Time: string |}>()
+        let reservationDateTime =
+            {
+                Date = reservationRequestDateTime.Date |> DateOnly.Parse
+                Time = reservationRequestDateTime.Time |> TimeOnly.Parse
+            }
+        let! bookings = Data.Bookings.getAllBookingsByDateBeforeTime dbConnStr reservationDateTime 
+        return! json (bookings |> List.map (fun (b: Booking) -> b.Serialise ()) |> List.toArray) next ctx 
     }
 
 

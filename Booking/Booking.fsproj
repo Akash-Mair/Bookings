@@ -17,9 +17,11 @@
     <None Include="paket.references" />
     <Compile Include="Domain.fs" />
     <Compile Include="DataAccess\Data.Common.fs" />
+    <Compile Include="DataAccess\Data.Locations.fs" />
     <Compile Include="DataAccess\Data.Reservations.fs" />
     <Compile Include="DataAccess\Data.Bookings.fs" />
     <Compile Include="Config.fs" />
+    <Compile Include="Locations.fs" />
     <Compile Include="Reservations.fs" />
     <Compile Include="Bookings.fs" />
     <Compile Include="Program.fs" />

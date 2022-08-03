@@ -2,6 +2,7 @@
 
 
 open System
+open System.Data.SqlClient
 open Data.Common
 open Domain
 open Npgsql.FSharp
@@ -45,4 +46,14 @@ let createBooking (DbConnectionString connStr) (booking: BookingRequest) =
                "ReservationId", Sql.uuid booking.ReservationId.Value
            ]
     |> Sql.executeNonQueryAsync
+
+let getAllBookingsByDateBeforeTime (DbConnectionString connStr) (reservationDateTime: ReservationDateTimeRequest) =
+    let endDateTime = reservationDateTime.Date.ToDateTime(reservationDateTime.Time)
+    let startDateTime = reservationDateTime.Date.ToDateTime(TimeOnly.MinValue)
+    
+    connStr
+    |> Sql.connect
+    |> Sql.query "SELECT * FROM booking.Booking WHERE BookingDateTime BETWEEN @StartTime AND @EndTime"
+    |> Sql.parameters [ "StartTime", Sql.timestamp startDateTime; "EndTime", Sql.timestamp endDateTime ]
+    |> Sql.executeAsync readBooking
 

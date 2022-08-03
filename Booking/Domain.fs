@@ -6,13 +6,25 @@ type LocationId =
     | LocationId of Guid
     member this.Value = match this with LocationId id -> id 
     
-type LocationName = LocationName of string
+type LocationName =
+    | LocationName of string
+    member this.Value = match this with LocationName name -> name 
 
 type Location =
     {
         Name: LocationName
         Id: LocationId
+        MaxCapacity: int
     }
+    
+    member this.Serialise () =
+        {|
+            Id = this.Id.Value
+            Name = this.Name.Value
+            MaxCapacity = this.MaxCapacity
+        |}
+    
+    
 
 type ReservationId =
     | ReservationId of Guid
@@ -113,5 +125,9 @@ type BookingRequest =
         ReservationId: ReservationId
     }
 
-
+type ReservationDateTimeRequest =
+    {
+        Date: DateOnly
+        Time: TimeOnly
+    }
 

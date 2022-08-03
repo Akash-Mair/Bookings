@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <RestoreSuccess Condition=" '$(RestoreSuccess)' == '' ">True</RestoreSuccess>
+    <RestoreTool Condition=" '$(RestoreTool)' == '' ">NuGet</RestoreTool>
+    <ProjectAssetsFile Condition=" '$(ProjectAssetsFile)' == '' ">$(MSBuildThisFileDirectory)project.assets.json</ProjectAssetsFile>
+    <NuGetPackageRoot Condition=" '$(NuGetPackageRoot)' == '' ">$(UserProfile)\.nuget\packages\</NuGetPackageRoot>
+    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">C:\Users\Akash\.nuget\packages\</NuGetPackageFolders>
+    <NuGetProjectStyle Condition=" '$(NuGetProjectStyle)' == '' ">PackageReference</NuGetProjectStyle>
+    <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">6.1.0</NuGetToolVersion>
+  </PropertyGroup>
+  <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <SourceRoot Include="C:\Users\Akash\.nuget\packages\" />
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <PkgFSharp_Core Condition=" '$(PkgFSharp_Core)' == '' ">C:\Users\Akash\.nuget\packages\fsharp.core\6.0.2</PkgFSharp_Core>
+    <PkgFsHttp Condition=" '$(PkgFsHttp)' == '' ">C:\Users\Akash\.nuget\packages\fshttp\9.1.2</PkgFsHttp>
+    <PkgAmazon_Lambda_SQSEvents Condition=" '$(PkgAmazon_Lambda_SQSEvents)' == '' ">C:\Users\Akash\.nuget\packages\amazon.lambda.sqsevents\2.1.0</PkgAmazon_Lambda_SQSEvents>
+    <PkgAmazon_Lambda_Core Condition=" '$(PkgAmazon_Lambda_Core)' == '' ">C:\Users\Akash\.nuget\packages\amazon.lambda.core\2.1.0</PkgAmazon_Lambda_Core>
+    <PkgAmazon_Lambda_Serialization_SystemTextJson Condition=" '$(PkgAmazon_Lambda_Serialization_SystemTextJson)' == '' ">C:\Users\Akash\.nuget\packages\amazon.lambda.serialization.systemtextjson\2.3.0</PkgAmazon_Lambda_Serialization_SystemTextJson>
+  </PropertyGroup>
+</Project>

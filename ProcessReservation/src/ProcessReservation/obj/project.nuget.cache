@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "p37yKeqdIYWwtfdHPfKOWYGAna82miej4c46fbbyj2c3B/2wyTNKoYBwjJLydFUSpf2ir0Up2xKGDYC7hytCiQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Akash\\Documents\\code\\learning\\Booking\\ProcessReservation\\src\\ProcessReservation\\ProcessReservation.fsproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Akash\\.nuget\\packages\\amazon.lambda.core\\2.1.0\\amazon.lambda.core.2.1.0.nupkg.sha512",
+    "C:\\Users\\Akash\\.nuget\\packages\\amazon.lambda.serialization.systemtextjson\\2.3.0\\amazon.lambda.serialization.systemtextjson.2.3.0.nupkg.sha512",
+    "C:\\Users\\Akash\\.nuget\\packages\\amazon.lambda.sqsevents\\2.1.0\\amazon.lambda.sqsevents.2.1.0.nupkg.sha512",
+    "C:\\Users\\Akash\\.nuget\\packages\\fsharp.core\\6.0.2\\fsharp.core.6.0.2.nupkg.sha512",
+    "C:\\Users\\Akash\\.nuget\\packages\\fshttp\\9.1.2\\fshttp.9.1.2.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -11,13 +11,18 @@ open Amazon.Extensions.NETCore.Setup
 let endpoints =
     [
         GET [
+            route "/locations" Locations.getAllLocations
+            routef "/locations/%s" Locations.getLocation
+            
             route "/reservations" Reservations.getAllReservations
             routef "/reservations/%s" Reservations.getReservationById
+            
             route "/bookings" Bookings.getAllBookings
             routef "/bookings/%s" Bookings.getBookingById
         ]
         POST [
             route "/bookings" Bookings.requestBooking
+            route "/bookings/check" Bookings.getAllBookingsByDateBeforeTime
             route "/reservations" Reservations.requestReservation
         ]
     ]
@@ -37,12 +42,12 @@ let configureServices (services : IServiceCollection) =
     let config = services.BuildServiceProvider().GetService<IConfiguration>()
     let serviceUrl = config.GetValue<string>("AWS:ServiceURL")
     services
-        .AddSingleton<IAmazonSQS>(
-            let config = AmazonSQSConfig(ServiceURL=serviceUrl)
-            new AmazonSQSClient(BasicAWSCredentials("temp", "temp"), config))
+//        .AddSingleton<IAmazonSQS>(
+//            let config = AmazonSQSConfig(ServiceURL=serviceUrl)
+//            new AmazonSQSClient(BasicAWSCredentials("temp", "temp"), config))
 // TODO: Add an if prod env then use the below commented lines rather than the above
-//        .AddDefaultAWSOptions(config.GetAWSOptions("AWS"))
-//        .AddAWSService<IAmazonSQS>()
+        .AddDefaultAWSOptions(config.GetAWSOptions("AWS"))
+        .AddAWSService<IAmazonSQS>()
         .AddRouting()
         .AddGiraffe()
     |> ignore
